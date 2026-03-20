@@ -31,7 +31,7 @@ java.lang.Iterable
 → Queue<String> q = new ArrayDeque<>();
 
 
-Map (interfaz)  ❗ NO pertenece a Collection
+Map (interfaz)   NO pertenece a Collection
 ├── HashMap (implementa Map)
 │      → Map<String, Integer> m = new HashMap<>();
 │
