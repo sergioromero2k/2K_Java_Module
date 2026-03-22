@@ -10,8 +10,11 @@ java.lang.Iterable
     │     ├── LinkedList (implementa List)
     │     │      → List<String> l = new LinkedList<>();
     │     │
-    │     └── Vector (implementa List)
-    │            → List<String> l = new Vector<>();
+    │     ├── Vector (implementa List)
+    │     │      → List<String> l = new Vector<>();
+    │     │
+    │     └── Stack (extiende Vector)
+    │            → Stack<String> s = new Stack<>();
     │
     ├── Set (interfaz)
     │     ├── HashSet (implementa Set)
