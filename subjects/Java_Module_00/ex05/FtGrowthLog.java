@@ -1,5 +1,3 @@
-package exercise;
-
 import java.util.Scanner;
 
 /**
@@ -13,7 +11,7 @@ public class FtGrowthLog {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Target day: ");
     int days = scanner.nextInt();
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= days; i++) {
       System.out.println("Day " + i + ": Growing...");
     }
     System.out.println("Target reached!");
