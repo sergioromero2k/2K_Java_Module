@@ -1,28 +1,26 @@
-package exercise;
+package ex0;
 
 import java.util.ArrayList;
 
 /**
- * Manages the registration and display of expedition members.
+ * Registry system for managing a party of adventurers.
  */
 public class HeroRegistry {
+
   /**
-   * Main entry point for the registry application.
+   * Entry point of the application.
    *
-   * @param args Command line arguments (not used).
+   * @param args Command line arguments.
    */
-  public static void main(String[] args) {
-    ArrayList<Adventurer> adventurers = new ArrayList<>();
+  public static void main(final String[] args) {
+    ArrayList<Adventurer> party = new ArrayList<>();
+    party.add(new Adventurer("Artorias", 50, "Knight"));
+    party.add(new Adventurer("Sylvanas", 45, "Archer"));
 
-    // Adding records using the canonical constructor.
-    adventurers.add(new Adventurer("Artorias", 50, "Knight"));
-    adventurers.add(new Adventurer("Sylvanas", 45, "Archer"));
-
-    System.out.println("=== ADVENTURER REGISTRY ===");
-    for (Adventurer a : adventurers) {
-      System.out.println("- " + a.name() + " (Level " + a.level() + ") [" + a.role() + "] ");
+    System.out.println("=== ADVENTURER REGISTRY === ");
+    for (Adventurer a : party) {
+      System.out.println("- " + a.name() + " (Level " + a.level() + ") [" + a.role() + "]");
     }
-    System.out.println("\nTotal: " + adventurers.size() + " heroes in the party. ");
-
+    System.out.println("\nTotal: " + party.size() + " heroes in the party.");
   }
 }

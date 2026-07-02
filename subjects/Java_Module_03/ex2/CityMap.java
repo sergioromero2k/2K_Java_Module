@@ -1,44 +1,42 @@
-package exercise;
+package ex2;
 
 import java.util.HashMap;
 
 /**
- * CityMap class manages locations in Pixel City using a HashMap.
- * Goal: Assign coordinates to locations and perform fast lookups.
+ * Handles the mapping and searching of city locations.
  */
 public class CityMap {
+
   /**
-   * Entry point of the application.
+   * Searches for a location in the map and prints the result.
    *
-   * @param args Command line arguments (not used).
+   * @param map   the map of locations
+   * @param place the name of the place to search
    */
-  public static void main(String[] args) {
-    HashMap<String, String> m = new HashMap<>();
-
-    System.out.println("=== PIXEL CITY GPS ===");
-    System.out.println("Registering locations...");
-    m.put("Inn", "Located at the North Plaza.");
-    m.put("Guild", "Located at the Town Center.");
-    m.put("Blacksmith", "Located near the East Gate.");
-    m.put("Market", "Located in the South District.");
-    searchLocation(m, "Inn");
-    searchLocation(m, "Graveyard");
-
-    System.out.println("\nTotal locations in map: " + m.size());
+  public static void searchLocation(HashMap<String, String> map, String place) {
+    if (map.containsKey(place)) {
+      System.out.println("Search: '" + place + "' -> Found: " + map.get(place));
+    } else {
+      System.out.println("Search: '" + place + "' -> Error: This location is not discovered yet.");
+    }
   }
 
   /**
-   * Performs a direct lookup in the map.
+   * Entry point of the application.
    *
-   * @param map The HashMap containing city data.
-   * @param place The name of the location to find.
+   * @param args command line arguments
    */
-  public static void searchLocation(HashMap<String, String> map, String place) {
-    System.out.print("Search: '" + place + "' -> ");
-    if (map.containsKey(place)) {
-      System.out.println("Found: " + map.get(place));
-    } else {
-      System.out.println("Error: This location is not discovered yet.");
-    }
+  public static void main(final String[] args) {
+    HashMap<String, String> map = new HashMap<>();
+    map.put("Inn", "Located at the North Plaza");
+    map.put("Guild", "Located at the Town Center");
+    map.put("Blacksmith", "Located near the East Gate");
+    map.put("Market", "Located in the South District");
+
+    System.out.println("=== PIXEL CITY GPS === ");
+    System.out.println("Registering locations...");
+    searchLocation(map, "Inn");
+    searchLocation(map, "Graveyard");
+    System.out.println("\nTotal locations in map: " + map.size());
   }
 }

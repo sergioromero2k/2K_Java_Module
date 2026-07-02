@@ -1,43 +1,30 @@
-package exercise;
+package ex1;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
 /**
- * Handles the collection and filtering of loot items found during expeditions.
- * Demonstrates the differences between List, HashSet, and TreeSet.
+ * Processes a list of loot to show unique and sorted items.
  */
 public class LootProcessor {
   /**
-   * Main entry point for processing loot items.
+   * Entry point of the application.
    *
-   * @param args Command line arguments (not used).
+   * @param args Command line arguments.
    */
-  public static void main(String[] args) {
-    List<String> items = new ArrayList<>();
+  public static void main(final String[] args) {
+    List<String> rawLoot = List.of("Sword", "Shield", "Sword", "Potion");
 
-    items.add("Sword");
-    items.add("Shield");
-    items.add("Sword");
-    items.add("Potion");
+    // Changed HashMap to HashSet
+    HashSet<String> uniqueLoot = new HashSet<>(rawLoot);
+
+    TreeSet<String> sortedLoot = new TreeSet<>(rawLoot);
 
     System.out.println("=== LOOT PROCESSING ===");
-    System.out.println("Raw Loot: " + items);
+    System.out.println("Unique Loot: " + uniqueLoot);
+    System.out.println("Sorted Loot: " + sortedLoot);
 
-    // Remove duplicates using a HashSet
-    HashSet<String> hash = new HashSet<>();
-    hash.addAll(items);
-
-    System.out.println("Unique Loot: " + hash);
-
-    // Sort items using a TreeSet
-    TreeSet<String> tree = new TreeSet<>();
-    tree.addAll(items);
-
-    System.out.println("Sorted Loot: " + tree);
-    System.out.println("\nTotal unique items: " + hash.size());
+    System.out.println("\nTotal unique items: " + uniqueLoot.size());
   }
-
 }
