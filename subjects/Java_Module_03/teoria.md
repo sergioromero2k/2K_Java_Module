@@ -67,3 +67,13 @@ if (!spellStack.isEmpty()) {        // .isEmpty() — comprobar si la pila está
 * .add(0, elemento) — insertar en una posición específica
   .startsWith(texto) — comprobar cómo empieza un String, "urgent:shield".startsWith("urgent:"); // true
 
+| Tipos primitivos | Wrapper equivalente |
+|------------------|---------------------|
+| int              | Integer             |
+| double           | Double              |
+| boolean          | Boolean             |
+| char             | Character           |
+| long             | Long                |
+| float            | Float               |
+| byte             | Byte                |
+| short            | Short               |
