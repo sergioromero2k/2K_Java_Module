@@ -1,4 +1,4 @@
-package exercise;
+package ex1;
 
 /**
  * Represents a tree in the forest management system.

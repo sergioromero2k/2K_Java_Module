@@ -1,4 +1,4 @@
-package exercise;
+package ex3;
 
 /**
  * Main factory class to instantiate and manage Tree objects.

@@ -1,4 +1,4 @@
-package exercise;
+package ex1;
 
 /**
  * Main application to register and display tree data.

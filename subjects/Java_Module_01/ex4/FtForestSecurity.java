@@ -1,4 +1,4 @@
-package exercise;
+package ex4;
 
 /**
  * Main class for running the Forest Security System simulation.

@@ -1,4 +1,4 @@
-package exercise;
+package ex2;
 
 /**
  * Main class to simulate and display forest growth.

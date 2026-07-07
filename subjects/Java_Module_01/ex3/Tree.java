@@ -1,4 +1,4 @@
-package exercise;
+package ex3;
 
 /**
  * Represents a tree with mandatory and valid data.

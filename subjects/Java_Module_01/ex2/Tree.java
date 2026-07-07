@@ -1,4 +1,4 @@
-package exercise;
+package ex2;
 
 /**
  * Represents a tree with growth behavior.

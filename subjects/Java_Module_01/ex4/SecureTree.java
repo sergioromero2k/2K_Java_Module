@@ -1,4 +1,4 @@
-package exercise;
+package ex4;
 
 /**
  * Secure Tree class represents a tree with protected attributes.

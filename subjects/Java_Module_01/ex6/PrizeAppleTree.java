@@ -1,4 +1,4 @@
-package exercise;
+package ex6;
 
 /**
  * Represents a Prize Apple Tree, a specialized type of FruitTree.

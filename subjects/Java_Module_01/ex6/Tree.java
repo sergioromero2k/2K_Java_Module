@@ -1,4 +1,4 @@
-package exercise;
+package ex6;
 
 /**
  * Base class representing a Tree.

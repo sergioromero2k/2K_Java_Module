@@ -1,4 +1,4 @@
-package exercise;
+package ex6;
 
 /**
  * Entry point for the Forest Management System demo.

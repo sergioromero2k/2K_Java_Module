@@ -1,4 +1,4 @@
-package exercise;
+package ex6;
 
 /**
  * Represents a FruitTree, a specialized Tree that contains fruit-related attributes.
