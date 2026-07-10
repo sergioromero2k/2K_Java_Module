@@ -1,0 +1,6 @@
+=== PLAN DE LA MISIÓN ===
+1. Encender motores
+2. Verificar combustible
+3. Despegar
+4. Entrar en órbita
+5. Iniciar exploración

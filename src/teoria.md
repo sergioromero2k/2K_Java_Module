@@ -51,3 +51,31 @@ try (Stream<String> lineas = Files.lines(ruta)) {
     System.out.println("Error: " + e.getMessage());
 }
 ```
+
+## ex01
+
+### ```Stream.filter()``` - quedarte solo con lo que cumple la condición.
+**filter()** recibe una condición(una lambda que devuelve true/false) y descarta todos los elementos que no la cumplan.
+Solo dejan pasar los que devuelven ```true```.
+```java
+List<String> palabras = List.of("Gato","Perro","Gallina","Pez");
+
+palabras.stream()
+    .filter(palabra -> palabra.length() > 4) // solo palabras con más de 4 letras
+    .forEach(System.out::println);
+```
+
+### ```Stream.map()``` - transformar cada elemento en otra cosa.
+**map()** recibe una función que transforma cada elemento en otro valor (puede ser del mismo tipo o de un tipo distinto), y lo reemplaza en el stream.
+
+```java
+List<String> nombres = List.of("ana", "luis", "marta");
+
+nombres.stream()
+    .map(nombre -> nombre.toUpperCase()) // transforma cada String a mayúsculas
+    .forEach(System.out::println);
+
+// ANA
+// LUIS
+// MARTA
+```
