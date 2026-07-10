@@ -1,4 +1,4 @@
-package exercise;
+package ex1;
 
 /**
  * Diagnostic tool for Space Station error handling.

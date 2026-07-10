@@ -1,4 +1,4 @@
-package exercise;
+package ex0;
 
 /**
  * Validator for oxygen sensor readings in the base station.

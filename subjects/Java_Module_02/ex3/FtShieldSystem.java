@@ -1,4 +1,4 @@
-package exercise;
+package ex3;
 
 /**
  * Technical Controller for the ship's thermal shield system.

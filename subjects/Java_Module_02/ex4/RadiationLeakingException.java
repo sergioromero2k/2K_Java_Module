@@ -1,4 +1,4 @@
-package exercise;
+package ex4;
 
 /**
  * Custom exception class.

@@ -1,4 +1,4 @@
-package exercise;
+package ex5;
 
 /**
  * Manages the atmospheric reentry protocol for spacecraft.

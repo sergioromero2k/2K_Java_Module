@@ -1,4 +1,4 @@
-package exercise;
+package ex4;
 
 /**
  * Monitoring system designed to halt execution upon detecting sabotage.

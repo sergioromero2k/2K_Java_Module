@@ -1,4 +1,4 @@
-package exercise;
+package ex2;
 
 /**
  * Base exception representing a generic space station emergency.

@@ -1,4 +1,4 @@
-package exercise;
+package ex5;
 
 /**
  * Custom exception thrown when a spacecraft's reentry angle falls outside

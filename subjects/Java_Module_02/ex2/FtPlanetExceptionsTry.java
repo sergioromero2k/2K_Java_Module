@@ -1,4 +1,4 @@
-package exercise;
+package ex2;
 
 /**
  * Base Exception for all spaces station related incidents.
