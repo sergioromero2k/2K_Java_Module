@@ -187,3 +187,17 @@ textos.stream().map(Integer::parseInt);
 | Método estático | `Integer::parseInt` → `x -> Integer.parseInt(x)` |
 | Método de instancia sobre el parámetro | `String::toUpperCase` → `x -> x.toUpperCase()` |
 | Constructor | `Adventurer::new` → `x -> new Adventurer(x)` |
+
+## ex06 - Validación de Identidad (Optional.filter())
+* ``Optional.filter()`` - aplicar una condición dentro del Optional.
+ ``Optional.isPresent()`` - comprobar si sigue teniendo valor.
+```java
+Optional<String> alias2 = Optional.of("Rex");
+
+Optional<String> resultado2 = alias2.filter(a -> a.length() > 5);
+// resultado2 está VACÍO ahora, aunque "Rex" existía, porque NO cumplió la condición
+
+if (resultado.isPresent()) {
+    System.out.println("Alias válido");
+}
+```
