@@ -1,4 +1,7 @@
-### ex0
+# Teoria - Module 04
+---
+
+## ex0 - El guion de la misión
 * **Path** representa la ubicación de un archivo o carpeta en tu sistema.
 * Path.of(...) es el método moderno (Java 11+) para crear un Path.
 * **Files** es una clase con métodos estáticos (no necesitas crear un objeto, los llamas directo desde la clase) para hacer operaciones sobre archivos: leerlos, escribirlos, comprobar si existen, etc.
@@ -52,7 +55,7 @@ try (Stream<String> lineas = Files.lines(ruta)) {
 }
 ```
 
-## ex01
+## ex01 - Limpiando la Escena del Crimen
 
 ### ```Stream.filter()``` - quedarte solo con lo que cumple la condición.
 **filter()** recibe una condición(una lambda que devuelve true/false) y descarta todos los elementos que no la cumplan.
@@ -79,3 +82,77 @@ nombres.stream()
 // LUIS
 // MARTA
 ```
+
+## ex02 - El buscador de Mercenarios
+* Un **stream** en Java es una forma de recorrer y procesar colecciones de datos(listas, conjuntos, etc.) de manera más declarativa, sin escribir bucle `for` manualmente.
+* Piensa en un stream como una cadena de operaciones por la que pasan los elementos de una colección.
+
+```java
+List<String> nombres = List.of("Ana", "Luis", "Pedro", "María");
+String resultado = nombres.stream()
+    .filter(nombre -> nombre.startsWith("P"))
+    .findFirst()
+    .orElse("No encontrado");
+```
+A partir de ahí puedes hacer operaciones como:
+* ``filter()`` → quedarse solo con algunos elementos.
+* ``map()`` → transformar los elementos.
+* ``sorted()`` → ordenarlos.
+* ``findFirst()`` → obtener el primero.
+* ``count()`` → contar cuántos hay.
+
+```java
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+
+        List<String> mercenarios = List.of(
+                "Geralt - Nivel 50",
+                "Letho - Nivel 45",
+                "Eskel - Nivel 38",
+                "Lambert - Nivel 40"
+        );
+
+        String resultado = mercenarios.stream()
+                .filter(m -> m.contains("Letho"))
+                .findFirst()
+                .orElse("Mercenario no encontrado");
+
+        System.out.println(resultado);
+    }
+}
+```
+## ex04 - El Almacén de Deadpool (I/O — escribir archivos)
+* ```Files.write()``` - escribir contenido en un archivo.
+* Es el hermano opuesto de ``Files.lines()``: en vez de leer, escribe una lista de líneas en un archivo.
+
+```java
+List<String> lineas = List.of("Espada +5", "Escudo mágico", "Poción");
+Files.write(Path.of("salida.txt"), lineas);
+```
+Esto crea(o sobreescribe) ``salida.txt`` con cada elemento de la lista como una línea separada.
+
+### ```try-with-resources``` para escritura
+* Aunque Files.write() en su forma simple no necesita try-with-resources explícito (se abre/cierra internamente).
+* El problema es que si ocurre un error antes no logra cerrar, es decir write.close()
+
+El enunciado lo exige como práctica — probablemente usando un BufferedWriter o similar:
+```java
+try (BufferedWriter writer = Files.newBufferedWriter(Path.of("salida.txt"))) {
+    writer.write("contenido");
+} catch (IOException e) {
+    System.out.println("Error: " + e.getMessage());
+}
+```
+
+### ``Collectors.toList()`` — convertir un Stream de vuelta a una List
+```java
+List<String> filtrados = items.stream()
+    .filter(item -> /* condición de "valor" */)
+    .collect(Collectors.toList());
+```
+
+## ex05 - Conversión de Datos (Map+Method References)
+* **Repaso:** `map()` transforma tipos
+
