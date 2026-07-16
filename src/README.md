@@ -123,7 +123,7 @@ public class Main {
     }
 }
 ```
-## ex04 - El Almacén de Deadpool (I/O — escribir archivos)
+## ex03 - El Almacén de Deadpool (I/O — escribir archivos)
 * ```Files.write()``` - escribir contenido en un archivo.
 * Es el hermano opuesto de ``Files.lines()``: en vez de leer, escribe una lista de líneas en un archivo.
 
@@ -153,6 +153,37 @@ List<String> filtrados = items.stream()
     .collect(Collectors.toList());
 ```
 
-## ex05 - Conversión de Datos (Map+Method References)
-* **Repaso:** `map()` transforma tipos
+## ex04 - Filtrado de Hechizos(Streams avanzados)
+* ```Stream.distinct()``` - eliminar duplicados dentro de un Stream.
+* ```Stream.sorted()``` - ordenar los elementos del Stream.
+* ```Comparator``` - ordenar con reglas personalizadas.
 
+```java
+// ordena por longitud del texto
+hechizos.stream()
+    .sorted(Comparator.comparing(String::length)) // ordena por longitud del texto
+    .forEach(System.out::println);
+
+// Para orden alfabético descendente (Z→A):
+hechizos.stream()
+    .sorted(Comparator.reverseOrder())
+    .forEach(System.out::println);
+```
+
+## ex05 - Conversión de Datos(Map + Method References)
+* ```map``` transforma tipos.
+
+### Method References (::) — una forma más corta de escribir lambdas
+```java
+// Lambda normal
+textos.stream().map(texto -> Integer.parseInt(texto));
+
+// Method reference equivalente (misma cosa, más corto)
+textos.stream().map(Integer::parseInt);
+```
+### Tipos de Method References que existen (para que reconozcas la sintaxis)
+| Tipo | Ejemplo equivalente en lambda |
+|------|-------------------------------|
+| Método estático | `Integer::parseInt` → `x -> Integer.parseInt(x)` |
+| Método de instancia sobre el parámetro | `String::toUpperCase` → `x -> x.toUpperCase()` |
+| Constructor | `Adventurer::new` → `x -> new Adventurer(x)` |
