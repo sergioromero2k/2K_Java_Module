@@ -190,7 +190,8 @@ textos.stream().map(Integer::parseInt);
 
 ## ex06 - Validación de Identidad (Optional.filter())
 * ``Optional.filter()`` - aplicar una condición dentro del Optional.
- ``Optional.isPresent()`` - comprobar si sigue teniendo valor.
+* ``Optional.isPresent()`` - comprobar si sigue teniendo valor.
+
 ```java
 Optional<String> alias2 = Optional.of("Rex");
 
@@ -200,4 +201,24 @@ Optional<String> resultado2 = alias2.filter(a -> a.length() > 5);
 if (resultado.isPresent()) {
     System.out.println("Alias válido");
 }
+```
+## ex07 - El informe del Sindicato (Leer JSON con Jackson)
+* JSON - un formato de texto para representar datos estructurados, muy usados para intercambiar información entre sistemas (APIs, archivos de configuración, etc).
+* Se parece a un Map (claves con valores), pero es texto plano — cualquier lenguaje de programación puede leerlo.
+
+```json
+{
+  "title": "Rescatar al rehén",
+  "difficulty": 8,
+  "location": "Bosque Norte"
+}
+```
+### Jackson y ``ObjectMapper`` - convertir JSON a objetos automáticamente
+* Jackson es una librería externa que Java usa muchisimo (Spring Boot la usa por debajo, de hecho para convertir tus `record` a JSON en las respuestas web que ya viste). Su clase principal es ``ObjectMapper``.
+
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+ObjectMapper mapper = new ObjectMapper();
+Mission mision = mapper.readValue(new File("mission.json"), Mission.class);
 ```
