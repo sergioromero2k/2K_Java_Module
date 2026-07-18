@@ -219,7 +219,7 @@ if (resultado.isPresent()) {
 * Un ``record`` es una forma compacta de crear una clase que solo guarda datos, sin necesitar escribir constructor, getters, equals, toString(), etc a mano.
 * Técnicamente también funcionaría con una class tradicional con getters/setters. Pero record es la opción moderna y preferida porque es menos código.
 * Con ``record`` estamos definiendo el molde("la plantilla") de qué forma va a tener un objeto Mission. Es solo definición de la estructura.
-* 
+
 ```java
 // Ejemplo de record
 public record Mission(String title, int difficulty, String location ) {}
@@ -237,4 +237,92 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 ObjectMapper mapper = new ObjectMapper();
 Mission mision = mapper.readValue(new File("mission.json"), Mission.class);
+```
+
+## Ex8: Exportación de Loot (Escribir JSON con Jackson)
+* El proceso inverso: objeto **java** -> JSON
+* Esto tomara tu lista de objetos Java y genera automáticamente el archivo ```loot.json``` con el contenido en formato JSON, sin que tú escribas ni una llava {} a mano.
+
+### Pretty print (formato "bonito", con indentación)
+Por defecto, Jackson escribe el JSON compacto, todo en una línea. Para que salga formateado con indentación (más legible), necesitas activar una opción del ObjectMapper:
+
+```java
+ObjectMapper mapper = new ObjectMapper();
+List<Item> loot = List.of(new Item("Espada", 100), new Item("Escudo", 80));
+
+mapper.writeValue(new File("loot.json"), loot);
+
+mapper.writerWithDefaultPrettyPrinter().writeValue(new File("loot.json"), loot);
+```
+
+## Extra A: El Cuartel General (Collectors.groupingBy)
+* Agrupar elementos según una característica común.
+* Imagina que quieres separar mercenarios for facción, sin escrbiri un ``if/for`` manual creando listas por cada grupo.
+
+### Collectors.groupingBy() - agrupa automáticamente
+```java
+Map<String, List<Mercenary>> agrupados = mercenarios.stream()
+    .collect(Collectors.groupingBy(Mercenary::faction));
+```
+Esto recorre todos los mercenarios y automáticamente crea un ``Map`` donde:
+* La clave es cada valor distinto de faction() que encontró.
+* El valor es la lista de todos los mercenarios que tienen esa facción.
+
+Todo eso, sin escribir un solo if ni crear listas manualmente — Jackson... digo, ``Collectors.groupingBy()`` lo hace todo.
+```json
+{
+  "X-Force": [Deadpool, Wolverine],
+  "Freelance": [Rex]
+}
+```
+
+### Collectors.groupingBy() + Collectors.counting() — agrupar y contar directamente
+Si no necesitas la lista completa, solo cuántos hay por grupo, puedes combinar 2 collectors.
+```json
+Map<String, Long> conteo = mercenarios.stream()
+    .collect(Collectors.groupingBy(Mercenary::faction, Collectors.counting()));
+
+// {"X-Force": 2, "Freelance": 1}
+```
+
+## Extra B: El Botín Total (reduce)
+Combinar todos los elementos en un solo resultado.
+* ```reduce()``` sirve para cuando quieres "aplastar" un stream completo en **un único valor** como sumar todo, encontrar el máximo, concatenar todo en un solo string, etc.
+
+### ``reduce(valorInicial, operacion)`` - sumar todo
+```java
+List<Integer> valores = List.of(100, 50, 200, 75);
+
+int total = valores.stream()
+    .reduce(0, Integer::sum);
+
+System.out.println(total); // 425
+// Lo mismo que:  int total = 0; for(...) total += x; — pero expresado como una sola operación de Stream, sin bucle ni variable mutable explícita.
+```
+Desglose:
+* ``0`` es el valor inicial(el **acumulador** empieza por 0).
+* ``Integer::sum`` es la operación que combina el acumulador con cada elemento nuevo, uno por uno: 0+100=100, 100+50=150, 150+200=350, 350+75=425.
+
+### ``.reduce(BinaryOperator.maxBy(comparator))`` - encontrar el máximo
+```java
+Optional<Integer> maximo = valores.stream()
+    .reduce(Integer::max);
+
+System.out.println(maximo.orElse(0)); // 200
+
+// Encontrar el Item de mayor valor, no solo un número
+Optional<Item> masValioso = items.stream()
+    .reduce(BinaryOperator.maxBy(Comparator.comparing(Item::valor)));
+```
+## Extra C: Sin Excusas (orElseThrow + flatMap + excepciones custom
+
+### ``Optional.orElseThrow()`` — lanzar una excepción en vez de un valor por defecto
+* Ya conoces ``.orElse(valorPorDefecto)``. ``.orElseThrow()`` es su primo más estricto: en vez de dar un valor de "plan B", lanza una excepción si el Optional está vacío.
+
+```java
+Optional<String> resultado = mercenarios.stream()
+    .filter(m -> m.equals("Deadpool"))
+    .findFirst();
+
+String encontrado = resultado.orElseThrow(() -> new MercenaryNotFoundException("Alias not found: Deadpool"));
 ```
