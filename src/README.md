@@ -214,9 +214,25 @@ if (resultado.isPresent()) {
 }
 ```
 ### Jackson y ``ObjectMapper`` - convertir JSON a objetos automáticamente
-* Jackson es una librería externa que Java usa muchisimo (Spring Boot la usa por debajo, de hecho para convertir tus `record` a JSON en las respuestas web que ya viste). Su clase principal es ``ObjectMapper``.
-
+* Jackson es una librería externa que Java usa muchisimo (Spring Boot la usa por debajo, de hecho para convertir tus `record` a JSON en las respuestas web que ya viste). 
+* De Jackson su clase principal es ``ObjectMapper``.
+* Un ``record`` es una forma compacta de crear una clase que solo guarda datos, sin necesitar escribir constructor, getters, equals, toString(), etc a mano.
+* Técnicamente también funcionaría con una class tradicional con getters/setters. Pero record es la opción moderna y preferida porque es menos código.
+* Con ``record`` estamos definiendo el molde("la plantilla") de qué forma va a tener un objeto Mission. Es solo definición de la estructura.
+* 
 ```java
+// Ejemplo de record
+public record Mission(String title, int difficulty, String location ) {}
+
+// La conexión con JSON: los 2 tienen la misma forma
+/*
+{
+    "title": "Rescatar al rehén",
+    "difficulty": 8,
+    "location": "Bosque Norte"gi
+    }
+*/
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 ObjectMapper mapper = new ObjectMapper();
