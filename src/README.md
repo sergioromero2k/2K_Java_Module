@@ -283,6 +283,11 @@ Map<String, Long> conteo = mercenarios.stream()
     .collect(Collectors.groupingBy(Mercenary::faction, Collectors.counting()));
 
 // {"X-Force": 2, "Freelance": 1}
+
+// Ejemplo de ForEach
+contador.forEach((faction, number) ->
+System.out.println(faction + " -> " + number));
+}
 ```
 
 ## Extra B: El Botín Total (reduce)

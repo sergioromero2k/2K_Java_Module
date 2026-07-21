@@ -1,0 +1,13 @@
+[ {
+  "name" : "Katana",
+  "rarity" : "Legendary",
+  "value" : 100
+}, {
+  "name" : "Medkit",
+  "rarity" : "Common",
+  "value" : 50
+}, {
+  "name" : "Grenade",
+  "rarity" : "Rare",
+  "value" : 300
+} ]
