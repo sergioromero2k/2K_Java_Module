@@ -18,14 +18,22 @@ List<String> nombres = List.of("Ana", "Luis", "Marta");
 // Rutas absolutas
 Path ruta = Path.of("C:\\Users\\Sergio\\Documents\\mision.txt");
 // Rutas relativas
-Path ruta = Path.of("ex0", "mision.txt"); // busca en la carpeta ex0/mision.txt
+Path ruta = Path.of("subjects/Java_Module_04/ex0", "mision.txt"); // busca en la carpeta ex0/mision.txt
 
 boolean existe = Files.exists(ruta); // true/false, ¿existe ese archivo?
 // La operación más simple sobre un Stream: .forEach()
-lineas.forEach(linea -> System.out.println(linea)); // linea -> System.out.println(linea) es una lambda — una función anónima
+lineas.
+
+forEach(linea ->System.out.
+
+println(linea)); // linea -> System.out.println(linea) es una lambda — una función anónima
 
 Stream<String> stream = nombres.stream();
-stream.forEach(nombre -> System.out.println(nombre));
+stream.
+
+forEach(nombre ->System.out.
+
+println(nombre));
 // Ana
 // Luis
 // Marta
@@ -325,30 +333,35 @@ Optional<Item> masValioso = items.stream()
 * Ya conoces ``.orElse(valorPorDefecto)``. ``.orElseThrow()`` es su primo más estricto: en vez de dar un valor de "plan B", lanza una excepción si el Optional está vacío.
 
 ```java
+String resultado = optional.orElse("valor por defecto");
+
+Optional<String> resultado = Optional.empty();
+String valor = resultado.orElseThrow(); // Si no le pasas nada a .orElseThrow(), Java lanza una excepción genérica (NoSuchElementException) con un mensaje poco útil.
+
 Optional<String> resultado = mercenarios.stream()
     .filter(m -> m.equals("Deadpool"))
     .findFirst();
 
-String encontrado = resultado.orElseThrow(() -> new MercenaryNotFoundException("Alias not found: Deadpool"));
-```
+// Con una excepción personalizada
+Optional<String> resultado = Optional.empty();
+String valor = resultado.orElseThrow(() -> new MercenaryNotFoundException("No encontrado"));
 ```
 Throwable
 │
-│
 ├── Error
+│   ├── OutOfMemoryError
+│   └── StackOverflowError
 │
-└── Exception   ← Checked, Java te obliga a capturarlas (try-catch) o a declararlas con throws.
-     │          ← Una checked exception es una excepción que el compilador comprueba (checks).
-     │
-     ├── IOException            ← Checked
-     ├── SQLException           ← Checked
-     ├── ClassNotFoundException ← Checked
-     │
-     │      │
-│      └── RuntimeException  ← Unchecked, Sirve para representar errores que ocurren durante la ejecución (runtime) del programa.
-│             │
-│             ├── NullPointerException
-│             ├── ArithmeticException
-│             ├── IndexOutOfBoundsException
-│             └── IllegalArgumentException
+└── Exception
+│
+├── IOException              ← Checked
+├── SQLException             ← Checked
+├── ClassNotFoundException   ← Checked
+│
+└── RuntimeException         ← Unchecked
+├── NullPointerException
+├── ArithmeticException
+├── IndexOutOfBoundsException
+├── IllegalArgumentException
+└── MercenaryNotFoundException
 ```
