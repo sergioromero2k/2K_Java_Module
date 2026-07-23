@@ -331,3 +331,24 @@ Optional<String> resultado = mercenarios.stream()
 
 String encontrado = resultado.orElseThrow(() -> new MercenaryNotFoundException("Alias not found: Deadpool"));
 ```
+```
+Throwable
+│
+│
+├── Error
+│
+└── Exception   ← Checked, Java te obliga a capturarlas (try-catch) o a declararlas con throws.
+     │          ← Una checked exception es una excepción que el compilador comprueba (checks).
+     │
+     ├── IOException            ← Checked
+     ├── SQLException           ← Checked
+     ├── ClassNotFoundException ← Checked
+     │
+     │      │
+│      └── RuntimeException  ← Unchecked, Sirve para representar errores que ocurren durante la ejecución (runtime) del programa.
+│             │
+│             ├── NullPointerException
+│             ├── ArithmeticException
+│             ├── IndexOutOfBoundsException
+│             └── IllegalArgumentException
+```
