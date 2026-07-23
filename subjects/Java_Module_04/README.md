@@ -346,6 +346,8 @@ Optional<String> resultado = mercenarios.stream()
 Optional<String> resultado = Optional.empty();
 String valor = resultado.orElseThrow(() -> new MercenaryNotFoundException("No encontrado"));
 ```
+
+```
 Throwable
 │
 ├── Error
