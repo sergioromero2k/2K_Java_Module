@@ -52,11 +52,23 @@ public class Demo {
 ## ex2
 Este ejercicio introduce el concepto de trabajar con varios recursos a la vez y entender en qué orden los cierra Java.
 ```java
-try (
-    Recurso r1 = ...;
-    Recurso r2 = ...
-) {
+// Declaración múltiple en la cabecera
+try (Recurso a = new Recurso("A"); Recurso b = new Recurso("B")) {
+    System.out.println("Trabajando...");
+}
 
+// Bloques try anidados
+try (Recurso a = new Recurso("A")) {
+  try (Recurso b = new Recurso("B")) {
+        System.out.println("Trabajando...");
+    }
+}
+
+// Variables efectivas finales (desde Java 9)
+Recurso a = new Recurso("A");
+Recurso b = new Recurso("B");
+try (a; b) {
+  System.out.println("Trabajando...");
 }
 ```
 Muchos programas necesitan más de un recurso al mismo tiempo.
