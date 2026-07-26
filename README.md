@@ -2,7 +2,7 @@
 2K_Java_Module
 
 | Módulo | Nombre temático | Temas que aprenderás |
-|--------|-----------------|------------------------|
+|--------|----------------|------------------------|
 | **00** ✅| Raíces del Código | Sintaxis básica, `Scanner`, condicionales, recursividad, `switch`, métodos estáticos, primer contacto con Spring Boot |
 | **01** ✅| Vivero Forestal | Clases y objetos, constructores, `this`, `toString()`, encapsulamiento (`private`/getters/setters), herencia (`extends`, `super()`), polimorfismo básico |
 | **02** ✅| Garden Guardian (Estaciones Espaciales) | Manejo de excepciones: `try/catch/finally`, `throw`/`throws`, excepciones checked vs unchecked, excepciones personalizadas (jerarquías propias) |
@@ -12,5 +12,5 @@
 | **06** *(propuesto)* | Persistencia de Datos | Serialización binaria (`.ser`), comparación con JSON, introducción a por qué JSON se usa más en la práctica |
 | **07** *(propuesto)* | Interfaces y Abstracción | `interface`, clases abstractas, métodos `default`, contratos y polimorfismo real |
 | **08** *(propuesto)* | Genéricos | `Generics` (`<T>`), clases y métodos genéricos, wildcards (`? extends`, `? super`) |
-| **09** *(propuesto)* | Concurrencia Básica | `Thread`, `Runnable`, sincronización, condiciones de carrera |
+| **09** *(propuesto)* | Concurrencia | `Thread`, `Runnable`, sincronización, condiciones de carrera |
 | **10** *(propuesto)* | Proyecto Integrador | API REST con Spring Boot uniendo POO, excepciones, colecciones, streams y JSON en un proyecto real |
