@@ -154,3 +154,53 @@ public class MiExcepcion extends Exception {
 public class MiExcepcion extends RuntimeException {
 }
 ```
+
+## ex4
+* Antes de Java 7 (cuando no existía el try-with-resources), la gestión de recursos que requerían cierre explícito (como conexiones a bases de datos, ficheros o sockets) se realizaba obligatoriamente mediante la estructura try-finally.
+* Cuando abres un recurso, este consume memoria o canales del sistema operativo. Si ocurre una excepción durante su uso, el flujo del programa salta inmediatamente al bloque catch o sale del método, saltándose cualquier código posterior.
+* Si no cerrabas el recurso en un bloque finally, este quedaba abierto indefinidamente, provocando fugas (leaks) y bloqueando sistemas.
+
+```java
+// 1. Declarar la variable fuera del try para que tenga alcance en el finally
+MiRecurso recurso = null;
+
+try {
+    // 2. Abrir el recurso y realizar operaciones que pueden fallar
+    recurso = new MiRecurso();
+    recurso.abrir();
+    
+    // Simulamos un error
+    if (true) {
+        throw new RuntimeException("¡Fallo inesperado!");
+    }
+    
+    recurso.trabajar();
+
+} finally {
+    // 3. Garantizar el cierre manual
+    if (recurso != null) {
+        recurso.cerrar(); // Se ejecuta sí o sí, haya o no excepción
+    }
+}
+```
+
+## ex05
+---
+Para resolver este ejercicio(el informe de reflexión), debes contraponer el pasado y el presente de la gestión de recurso en Java basándose en 2 grandes ejes.
+**La seguridad**/**Limpieza del código** y **el manejo de excepciones (supresión)**.
+
+### 1. El Enfoque Tradicional (try-finally)
+Obliga al desarrollador a declarar la variable fuera del ``try``, abrirla dentro, y llamar manualmente al método de cierre(`close()`) dentro del bloque `finally` validando que no sea `nula`.
+
+#### Problemas principales
+* Código repetitivo y propenso a errores(boilerplate).
+* El peligro de las excepciones ocultas (**Exception Suppression/Masking**).
+* Olvido humano, si el programador olvidaba el bloque ``finally`` o validación del `null`.
+
+### 2. El Enfoque Moderno (try-with-resources y AutoCloseable)
+Llegó en Java 7 para automatizar por completo este proceso implementando la interfaz ``AutoCloseable``.
+
+#### Ventajas principales
+* Código limpio y seguro, los recursos se declaran en la cabecera del ``try`` y Java se encarga de cerrarlos de forma automática al salir del bloque.
+* Gestión inteligente de excepciones (Supresión de excepciones).
+* Orden inverso, cierra los recursos automáticamente en orden inverso al de su apertura.
