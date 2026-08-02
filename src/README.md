@@ -24,11 +24,74 @@ Para lograr serializar un objeto en Java, se necesita utilizar 3 elementos princ
 * ``ObjectOutputStream (El empaquetador):`` Es la persona experta que desarma la reliquia, la mete en una caja especial y la prepara en formato de **"paquete de envío" (bytes)**.
 * ``FileOutputStream (El camión de transporte):`` Es el vehículo físico que toma ese paquete ya preparado y lo transporta directamente hasta su destino final (el archivo ``relic.ser`` en tu disco).
 
+```
+relic
+  │
+  ▼
+oos.writeObject(relic)
+  │
+  ▼
+ObjectOutputStream serializa
+  │
+  ▼
+FileOutputStream.write(byte[])
+  │
+  ▼
+Archivo relic.ser
+```
+
 ## ex1
 * La deserialización es exactamente lo contrario: tomar esa secuencia de bytes guardada en un archivo (``relic.ser``) y reconstruirla en la memoria RAM para que vuelva a ser un objeto de Java totalmente funcional, conservando sus atributos originales.
 
 ### Las Piezas Clave del Rompecabezas
 * ``FileInputStream`` un flujo orientado a bytes enfocado en leer datos desde un archivo en el disco duro, abre el archivo existente, para que sus bytes puedan ser leídos por tu programa.
-* ``ObjectInputStream`` un flijo de alto nivel que envuelve al `FileInputStream` lee los bytes del archivo y los reconstruye en la memoria transformándolos de nuevo en un objeto de Java.
+* ``ObjectInputStream`` un flujo de alto nivel que envuelve al `FileInputStream` lee los bytes del archivo y los reconstruye en la memoria transformándolos de nuevo en un objeto de Java.
 
 ## ex2
+* Cada clase serializable tiene un identificador de versión (``serialVersionUID``). Si no lo declaras, Java lo calcula automáticamente en base a la estructura de la clase(campos, métodos, etc.).
+* **El problema** si cambias la clase (añades un campos, por ejemplo) y el UID calculado cambia, al intentar deserializar un objeto antiguo obtienes ``InvalidClassException``, porque Java detecta que la versión guardada no coincide con la versión actual de la clase.
+```java
+class Config implements Serializable {
+  private static final long serialVersionUID = 1L; // fijo, no cambia aunque edites la clase
+  int value;
+} 
+```
+
+## ex3
+* **Serializable** no significa que el objeto se guarde automáticamente. Solo significa que Java sabe cómo convertir ese objeto en una secuencia de bytes.
+* ``ArrayList`` es serializable si los objetos que contiene también implementan ``Serializable``, toda la lista puede serializarse.
+* ``printStackTrace()`` sirve para imprimir toda la información de una excepción, incluyendo dónde ocurrió.
+```java
+ArrayList<String> names = new ArrayList<>();
+
+names.add("Odin");
+names.add("Thor");
+names.add("Loki");
+
+oos.writeObject(names);
+
+// Deserializar la lista
+ArrayList<String> names =
+    (ArrayList<String>) ois.readObject();
+
+for (String name : names) {
+    System.out.println(name);
+}
+```
+
+```
+Objeto
+   │
+   ▼
+ObjectOutputStream
+   │
+   ▼
+¿Dónde los escribo?
+```
+El destino puede ser:
+* Un archivo (FileOutputStream) ← el caso de vuestro ejercicio.
+* La red (un Socket).
+* Memoria (ByteArrayOutputStream).
+* Cualquier otro OutputStream.
+
+## ex4
