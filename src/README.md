@@ -95,3 +95,80 @@ El destino puede ser:
 * Cualquier otro OutputStream.
 
 ## ex4
+Por defecto, todos los atributos(variables de instancia) no estáticos y no transitorios de un objeto serializable guardan automáticamente durante la serialización. Sin embargo, en aplicaciones reales, hay datos que no deben persistir por motivos de seguridad o lógica.
+* Contraseñas (``Password``).
+* Código de activación.
+* Conexiones abiertas a base de datos (``Connection``).
+* Hilos de ejecución (``Thread``).
+
+### transient
+* La palabra reservada ```transient``` se utiliza como un modificación en la declaración de un atributo para indicarte al mecanismo de serialización de Java.
+* Durante la serialización el valor del atributo ```transient``` se omite y no escribe en el flujo de bytes.
+* Durante la deserialización como el atributo no fue guardado, Java le asigna su valor por defecto según su tipo de dato.
+
+```java
+import java.io.*;
+
+// 1. La clase debe implementar Serializable
+public class BankAccount implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String accountNumber;
+    
+    // 2. Usamos 'transient' para evitar que el PIN se serialice
+    private transient String pinCode; 
+
+    public BankAccount(String accountNumber, String pinCode) {
+        this.accountNumber = accountNumber;
+        this.pinCode = pinCode;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
+    }
+}
+```
+## ex5
+* JSON es un formato de intercambio de datos ligero, basado en texto y legible por humanos.
+* A diferencia de la serialización binaria nativa de Java (``ObjectOutputStream``), que solo puede ser leída por programas desarrollados en Java.
+* JSON es universal: cualquier lenguaje de programación moderno puede leerlo y escribirlo fácilmente.
+
+### Jackson 
+* Es una de las librerías más populares y potentes de java para procesar JSON.
+
+* Su clase principal es ObjectMapper, la cual se encarga de:
+* **Serialización (Object to JSON):** Convertir objetos o colecciones de Java (como listas o mapas) en texto JSON.
+* **Deserialización (JSON to Object):** Convertir texto JSON nuevamente en objetos de Java.
+
+### Pretty Print
+* Cuando un programa genera JSON, suele hacerlo en una sola línea continua para ahorrar espacio, lo cual dificulta su lectura.
+* El **Pretty Print (impresión bonita)** formatea el texto añadiendo saltos de línea e indentación (espacios de tabulación), logrando una estructura jerárquica clara y fácil de leer para cualquier persona.
+* ``ObjectMapper``: Es el motor principal que procesa la conversión.
+* ``objectMapper.writeValue(file, inventory)``: Reemplaza al tradicional ObjectOutputStream. Toma la lista y la traduce automáticamente a formato JSON dentro del archivo especificado.
+
+
+### Serialización Binaria en Java
+* Convierte el objeto en una secuencia de bytes optimizada para el entorno de ejecución de Java.
+* **Metadatos y Cabeceras** guarda información detallada sobre la estructura de la clase(nombres completos de los paquetes, nombres de los atributos, modificadores de acceso, firmas de serialización como el ``serialVersionUID``)`.
+* **Estructura de objeto** Java añade bytes de control para saber cómo reconstruir la jerarquía de los objetos en memoria exactamente igual a como estaban.
+* Es ilegible para humanos y para otros lenguajes; si intentas abrir el archivo ```.ser``` con un editor de texto, verás símbolos extraños y basura binaria.
+
+### Formato JSON
+* Almacena los datos como texto plano estructurado mediante pares clave-valor.
+* Solo guarda los datos puros y los nombres de los atributos como texto. No incluye metadatos complejos de la máquina virtual de Java.
+* Requiere un proceso de análisis de texto (parsing), lo que se consume un poco más de recursos de CPU al convertirlo de texto a objeto en comparación con la lectura binaria directa.
+
+#### Files.size()
+Para cumplir con la restricción de medir datos objetivos, la API moderna de java (``java.nio.file``) proporciona la clase `Files` y `Path`, las cuales permiten interactuar con el sistema de archivos de manera eficiente.
+* ``Path.of("file.json")`` obtiene la ruta del archivo.
+* ```Files.size(Path)``` Devuelve el tamaño exacto del archivo en bytes consultando directamente al sistema operativo.
+
+## ex7
