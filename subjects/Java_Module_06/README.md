@@ -172,3 +172,5 @@ Para cumplir con la restricción de medir datos objetivos, la API moderna de jav
 * ```Files.size(Path)``` Devuelve el tamaño exacto del archivo en bytes consultando directamente al sistema operativo.
 
 ## ex7
+* Si una superclase no implementa ``Serializable``, el motor de serialización de Java no guardará automáticamente los atributos definidos en esa clase padre.
+* Durante el proceso de deserialización, para poder reconstruir la parte de la subclase que sí es serializable.
