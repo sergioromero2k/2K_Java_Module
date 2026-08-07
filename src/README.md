@@ -112,4 +112,62 @@ Animal a = new Perro();    // también válido (Perro ES-UN Animal)
 * Una clase abstracta sí puede tener atributos, constructores, y lógica que dependa de ese estado interno.
 
 ## ex5
+#### Implementar varias interfaces a la vez
+* La ventaja frente a ``extends``
+* Esto sería imposible con las clases normales (``class Pato extends Ave, Pez``) no compila: solo se permite un padre).
+* Las interfaces rompen esa limitación porque no aportan estado ni implementación obligatoria conflictiva, solo contratos.
+
+```java
+public interface Volador {
+    void volar();
+}
+
+public interface Nadador {
+    void nadar();
+}
+
+// Una clase puede firmar VARIOS contratos, separados por coma:
+public class Pato implements Volador, Nadador {
+    @Override
+    public void volar() {
+        System.out.println("El pato vuela bajito.");
+    }
+
+    @Override
+    public void nadar() {
+        System.out.println("El pato nada en el estanque.");
+    }
+}
+```
+
+## ex6
+#### Combinar clase abstracta + list polimórfica
+* Este ejercicio junta el Ejercicio 3 (clase abstracta) con el Ejercicio 1 (lista + bucle sin ``instanceof``), pero ahora con herencia de clases en vez de interfaces.
+```java
+public abstract class Animal {
+  public void respirar() {
+    System.out.println("Inhala... exhala...");
+  }
+  public abstract String sonido();
+}
+
+public class Perro extends Animal {
+  @Override
+  public String sonido() { return "Guau!"; }
+}
+
+public class Gato extends Animal {
+  @Override
+  public String sonido() { return "Miau!"; }
+}
+
+List<Animal> zoo = new ArrayList<>();
+zoo.add(new Perro());
+    zoo.add(new Gato());
+
+    for (Animal a : zoo) {
+    a.respirar();          // idéntico para todos (heredado)
+    System.out.println(a.sonido()); // distinto según el objeto real
+    }
+```
 
